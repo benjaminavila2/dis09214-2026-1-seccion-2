@@ -1,4 +1,4 @@
-# sesión 06 - 26/06
+# sesión 11 - 26/06
 
 # Sonido en p5.js (loadSound) y Síntesis de Audio — Introducción a la programación en p5.js
 
