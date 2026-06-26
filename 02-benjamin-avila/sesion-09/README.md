@@ -133,4 +133,106 @@ function keyPressed() {
 }
 ​```
 
-📎
+📎 https://editor.p5js.org/PoliMujica/sketches/4lzOYE8KL
+
+### 2. Botones reales en la pantalla
+
+En lugar de hacer clic en cualquier parte de la pantalla, se puede crear un botón real de HTML usando la librería de p5.js. Es mucho más profesional para menús.
+
+​```javascript
+let botonSiguiente;
+
+function setup() {
+  createCanvas(400, 400);
+
+  // Creamos el botón y le ponemos texto
+  botonSiguiente = createButton('Siguiente Pantalla');
+  botonSiguiente.position(150, 350); // Posición en la pantalla
+
+  // Cuando se haga clic en ÉSTE botón, se ejecuta la función cambiarEstado
+  botonSiguiente.mousePressed(cambiarEstado);
+}
+
+function cambiarEstado() {
+  estado = estado + 1;
+  if (estado > 2) estado = 0;
+}
+​```
+
+📎 https://editor.p5js.org/PoliMujica/sketches/peTm3oGty
+
+### 3. Zonas de clic (botones dibujados con rect o ellipse)
+
+Si no quieres usar botones de HTML y prefieres dibujar tus propios botones con `rect()`, puedes evaluar si el mouse estaba dentro de esa caja al hacer clic.
+
+​```javascript
+function mousePressed() {
+  // Imaginemos un botón dibujado en X: 100, Y: 50, Ancho: 200, Alto: 50
+  if (mouseX > 100 && mouseX < 300 && mouseY > 50 && mouseY < 100) {
+    estado = estado + 1;
+    if (estado > 2) estado = 0;
+  }
+}
+​```
+
+📎 https://editor.p5js.org/PoliMujica/sketches/iw-gjFhK8
+
+### 4. Interacciones automáticas (por tiempo)
+
+**Temporizador:** ideal para una pantalla de introducción (Splash Screen) que dura 3 segundos y pasa sola al menú.
+
+​```javascript
+// En el draw, si estás en el estado 0 y pasan 3 segundos
+if (estado === 0 && millis() > 3000) {
+  estado = 1; // Pasa automáticamente al estado 1
+}
+​```
+
+📎 https://editor.p5js.org/PoliMujica/sketches/_AunxbPWQ
+
+---
+
+## Interacción con el mundo físico
+
+## Cámara web
+
+### createCapture(VIDEO);
+
+📎 Referencia: https://p5js.org/reference/p5/createCapture/
+
+1. **Crear la variable para la captura:** declarar una variable global que guardará el flujo de video de la cámara web.
+2. **Inicializar la cámara en `function setup()`:** usamos el comando especial `createCapture(VIDEO)`, que le pide permiso al navegador para encender la cámara del computador. También definimos el tamaño con `captura.size(x,y);` y es muy importante agregar `captura.hide();` para esconder el video que HTML pone abajo por defecto.
+3. **Dibujar la cámara en `function draw()`:** usamos la función `image()`. p5.js toma cada cuadro (frame) de la cámara y lo dibuja en el lienzo en tiempo real.
+
+​```javascript
+let captura; // Aquí se guardará el video de la cámara
+
+function setup() {
+  createCanvas(640, 480);
+
+  captura = createCapture(VIDEO);
+  captura.size(640, 480);
+  captura.hide();
+}
+
+function draw() {
+  background(0);
+
+  // Dibujamos la captura en la posición (0,0)
+  image(captura, 0, 0, width, height);
+}
+​```
+
+📎 https://editor.p5js.org/PoliMujica/sketches/PhkuD7kWU
+
+### Ejemplos cámara interactiva
+
+| Ejemplo | Enlace |
+|---|---|
+| Filtros | https://editor.p5js.org/PoliMujica/sketches/sK_BYepGn — referencia `filter()`: https://p5js.org/reference/p5/filter/ |
+| loadPixels | https://editor.p5js.org/PoliMujica/sketches/OVsazOghk — referencia `loadPixels()`: https://p5js.org/reference/p5/loadPixels/ |
+| Pincel de píxeles | https://editor.p5js.org/PoliMujica/sketches/cYCPjuXft |
+| Píxeles reaccionan al volumen del mic | https://editor.p5js.org/PoliMujica/sketches/L9QBzREF3 |
+| On/Off | https://editor.p5js.org/PoliMujica/sketches/Xdk0YBVbQ |
+
+---
