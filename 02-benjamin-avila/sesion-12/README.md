@@ -264,5 +264,124 @@ Movimiento estudiantil y social que visibilizó masivamente desigualdades estruc
 ### Convención Constitucional (2021)
 Fue el primer órgano constituyente del mundo elegido con paridad de género.
 
+---
+
+# *Diagrama de Flujo en markDown*
+
+# Guía técnica de uso del simulador — desigualdad de género en la política chilena
+
+## Paso 1: pantalla de inicio
+
+Haz clic en **"INGRESAR"**
+
+- Evento: `mousePressed()`
+- Verifica si `mouseX`/`mouseY` cayeron dentro del área del botón
+- Avanza desde la pantalla de bienvenida
+
+## Paso 2: pantalla de instrucciones
+
+Haz clic en **"INICIAR SIMULACIÓN"**
+
+- Evento: `mousePressed()`
+- Cambia `estado` a `"INTERACCION"`
+
+A partir de aquí, `draw()` ejecuta `pantallaInteraccion()` en cada frame.
 
 ---
+
+## Controla al hombre (jetpack)
+
+**Comando:** `mouseIsPressed` o `keyIsPressed` con `key == " "`
+
+- Mantén presionado el mouse o la barra **ESPACIADORA**
+- Se evalúa en cada frame dentro de `draw()`, no es un evento único
+- Activa `jetpackFuego = true`
+
+**Mientras está presionado:**
+```javascript
+hombreY -= 3;       // sube rápido, por frame
+jetpackFuego = true;
+```
+
+**Al soltar:**
+```javascript
+hombreY += 1.5;      // cae lento, por frame
+jetpackFuego = false;
+```
+
+**Límite:** no hay límite superior explícito. La caída se detiene cuando `hombreY` vuelve a ser igual a `height - 150` (su piso original).
+
+---
+
+## Controla a la mujer (escalera)
+
+**Comando:** `keyPressed()` con `keyCode == UP_ARROW` o `keyCode == DOWN_ARROW`
+
+- Una pulsación corta por cada vez
+- Se dispara una sola vez por evento, no se repite mientras se sostiene
+- Solo está activo si `estado == "INTERACCION"`
+
+**Flecha arriba:**
+```javascript
+mujerY -= 60;   // sube un peldaño exacto
+```
+
+**Flecha abajo:**
+```javascript
+mujerY += 60;   // baja un peldaño exacto
+```
+
+El salto de 60px coincide exactamente con el espaciado de los peldaños dibujados en `dibujarEscalera()`.
+
+**Límite:**
+```javascript
+mujerY = constrain(mujerY, 80, height - 120);
+```
+No puede subir más allá de `y = 80` ni bajar más allá de su piso original.
+
+---
+
+## Efecto visual en el fondo
+
+A medida que ambos avanzan, el Congreso Nacional se desvanece y aparece La Moneda, mapeado al progreso promedio de los dos personajes.
+
+---
+
+## Reiniciar la simulación
+
+Haz clic en **"REINICIAR (RESET)"**
+
+- Evento: `mousePressed()`
+- Llama a `resetVariablesAgentes()`
+- Vuelve `estado` a `"INICIO"`
+
+---
+
+## Resumen técnico de comandos
+
+**Hombre (continuo, evaluado por frame):**
+```javascript
+mouseIsPressed == true                 // -> hombreY -= 3, jetpackFuego = true
+keyIsPressed && key == " "              // -> mismo efecto que el mouse
+ninguno presionado                      // -> hombreY += 1.5, jetpackFuego = false
+```
+
+**Mujer (discreto, por evento de tecla):**
+```javascript
+keyPressed() + keyCode == UP_ARROW      // -> mujerY -= 60
+keyPressed() + keyCode == DOWN_ARROW    // -> mujerY += 60
+```
+
+**Diferencia clave:** el hombre depende del tiempo que mantengas presionado el comando; la mujer avanza un paso fijo por cada pulsación, sin importar cuánto tiempo la mantengas presionada.
+
+
+# *Diagrama de Flujo en markDown*
+
+
+
+# *Código de p5.js*
+
+
+
+# *Link al sketch en P5.js en formato EDITABLE.*
+
