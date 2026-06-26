@@ -1,4 +1,4 @@
-# sesión 06 - 19/05
+# sesión 10 - 19/05
 
 # Diseño Responsivo (windowResized) e Imágenes — Introducción a la programación en p5.js
 
@@ -246,6 +246,4 @@ function draw() {
 
 📎 https://youtube.com/playlist?list=PLRqwX-V7Uu6YB9x6f23CBftiyx0u_5sO9&si=teEGKAA9oMZw_4ll
 
----
 
-*Fin de la clase — Diseño UDP, Pensamiento Computacional*
